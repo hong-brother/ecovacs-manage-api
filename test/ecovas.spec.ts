@@ -1,0 +1,1 @@
+describe('ecovas api test', () => {});
