@@ -21,7 +21,19 @@ export class LoginService {
 
       const api = new EcoVacsAPI(device_id, countryCode, continent, authDomain);
       const password_hash = EcoVacsAPI.md5(connection.password);
-      return await api.connect(connection.email, password_hash);
+      if ((await api.connect(connection.email, password_hash)) === 'ready') {
+        const devices = await api.devices();
+        const vacuum = devices[0];
+        const vacBot = api.getVacBot(
+          api.uid,
+          EcoVacsAPI.REALM,
+          api.resource,
+          api.user_access_token,
+          vacuum,
+          continent,
+        );
+        return vacuum;
+      }
     } catch (e) {
       this.logger.error(e.message);
     }
