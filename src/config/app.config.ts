@@ -18,7 +18,7 @@ export class AppConfig {
   static getConfig() {
     // https://www.npmjs.com/package/env-schema
     return yaml.load(
-      readFileSync(join(__dirname, 'config', 'config.yml'), 'utf8'),
+      readFileSync(join(__dirname, '..', '..', 'config', 'config.yml'), 'utf8'),
     ) as Record<string, any>;
   }
 

@@ -38,6 +38,7 @@ export async function bootstrap() {
   const appConfig = app.select(SharedModule).get(AppConfig);
 
   // setting
+
   app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*.*.*.*'); // update to match the domain you will make the request from
     res.header(
@@ -49,8 +50,7 @@ export async function bootstrap() {
   app.enableVersioning(); // router version 명시 할 수 있도록
   app.setGlobalPrefix(appConfig.getCommon('prefix'));
   app.use(compression()); // http 압축
-  app.use(helmet()); //노드 보안 모듈 기본 설정
-  disableUpgradeInsecureRequests(app, helmet);
+
   app.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes

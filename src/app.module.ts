@@ -9,6 +9,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeormConfigService } from './database/typeorm-config.service';
 import { DataSource } from 'typeorm';
 import { SystemVersionEntity } from './database/entities/system-version.entity';
+import { EcovasModule } from './modules/ecovas/ecovas.module';
+import { CommonModule } from './modules/common/common.module';
+import { LoginModule } from './modules/login/login.module';
 
 @Module({
   imports: [
@@ -18,6 +21,9 @@ import { SystemVersionEntity } from './database/entities/system-version.entity';
       cache: true,
     }),
     HealthCheckerModule,
+    EcovasModule,
+    CommonModule,
+    LoginModule,
     SharedModule,
     TypeOrmModule.forRootAsync({
       useClass: TypeormConfigService,

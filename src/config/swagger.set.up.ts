@@ -35,6 +35,7 @@ export class SwaggerSetUp {
   }
 
   private description() {
-    return readFileSync(join(__dirname, 'docs', 'api-document.md'), 'utf8');
+    return '';
+    // return readFileSync(join(__dirname, 'docs', 'api-document.md'), 'utf8');
   }
 }
