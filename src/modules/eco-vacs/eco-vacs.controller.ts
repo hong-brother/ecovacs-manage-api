@@ -3,8 +3,8 @@ import ecovacsDeebot from 'ecovacs-deebot';
 const EcoVacsAPI = ecovacsDeebot.EcoVacsAPI;
 import { machineId, machineIdSync } from 'node-machine-id';
 
-@Controller('ecovas')
-export class EcovasController {
+@Controller('eco-vacs')
+export class EcoVacsController {
   @Get('')
   async test() {
     // The account_id is your Ecovacs ID or email address.
@@ -23,7 +23,7 @@ export class EcovasController {
       ecovacsDeebot.countries[
         countryCode.toUpperCase()
       ].continent.toLowerCase();
-    // Leave blank or use 'ecovacs.com' for Ecovacs login
+    // Leave blank or use 'eco-vacs.com' for Ecovacs login
     // or use 'yeedi.com' for yeedi login (available since version 0.8.3-alpha.2)
     const authDomain = '';
 

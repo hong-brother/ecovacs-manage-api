@@ -1,7 +1,7 @@
 import { EcoVacsAPI } from 'ecovacs-deebot';
 import assert from 'assert';
 
-describe('ecovas api test', () => {
+describe('eco-vacs api test', () => {
   let ecoVas: EcoVacsAPI;
   const machineId = 'E03315513D1FP4DD0455';
 
