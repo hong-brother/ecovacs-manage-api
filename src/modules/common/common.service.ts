@@ -3,6 +3,7 @@ import { machineIdSync } from 'node-machine-id';
 import { EcoVacsAPI } from 'ecovacs-deebot';
 import { DeviceIdDto } from './dto/device-id.dto';
 import { Builder } from 'builder-pattern';
+import { CountryCodeType } from '../../codes/country-code.type';
 
 @Injectable()
 export class CommonService {
@@ -13,6 +14,11 @@ export class CommonService {
   }
 
   async getCountries() {
-    return 'kr';
+    return Object.keys(CountryCodeType).map((name) => {
+      return {
+        name,
+        value: CountryCodeType[name as keyof typeof CountryCodeType],
+      };
+    });
   }
 }
