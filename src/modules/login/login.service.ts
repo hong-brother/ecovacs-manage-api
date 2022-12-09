@@ -7,6 +7,21 @@ import ecovacsDeebot, { EcoVacsAPI } from 'ecovacs-deebot';
 export class LoginService {
   private logger = new Logger(LoginService.name);
 
+  async login(connection: ConnectionDto) {
+    try {
+      const countryCode = 'de'; // If it doesn't appear to work try "ww", their world-wide catchall.
+      const device_id = EcoVacsAPI.getDeviceId(connection.deviceId, 0);
+      const continent =
+        ecovacsDeebot.countries[
+          connection.countryCode.toUpperCase()
+        ].continent.toLowerCase();
+      const api = new EcoVacsAPI(device_id, countryCode, continent);
+      const password_hash = EcoVacsAPI.md5(connection.password);
+      await api.connect(connection.email, password_hash);
+      debugger;
+    } catch (e) {}
+  }
+
   async tryConnection(connection: ConnectionDto) {
     try {
       const countryCode = 'de'; // If it doesn't appear to work try "ww", their world-wide catchall.
