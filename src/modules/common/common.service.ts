@@ -14,6 +14,11 @@ export class CommonService {
   }
 
   async getCountries() {
-    return CountryCodeType;
+    return Object.keys(CountryCodeType).map((name) => {
+      return {
+        name,
+        value: CountryCodeType[name as keyof typeof CountryCodeType],
+      };
+    });
   }
 }
