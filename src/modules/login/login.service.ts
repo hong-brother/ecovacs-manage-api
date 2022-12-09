@@ -1,7 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { ConnectionDto } from './dto/connection.dto';
 import { machineIdSync } from 'node-machine-id';
 import ecovacsDeebot, { EcoVacsAPI } from 'ecovacs-deebot';
+import { plainToClass, plainToInstance } from 'class-transformer';
+import { EcoVacsLoginInfo } from './dto/eco-vacs-login-info';
 
 @Injectable()
 export class LoginService {
@@ -9,17 +11,22 @@ export class LoginService {
 
   async login(connection: ConnectionDto) {
     try {
-      const countryCode = 'de'; // If it doesn't appear to work try "ww", their world-wide catchall.
-      const device_id = EcoVacsAPI.getDeviceId(connection.deviceId, 0);
+      const deviceId = EcoVacsAPI.getDeviceId(connection.deviceId, 0);
       const continent =
         ecovacsDeebot.countries[
           connection.countryCode.toUpperCase()
         ].continent.toLowerCase();
-      const api = new EcoVacsAPI(device_id, countryCode, continent);
+      const api = new EcoVacsAPI(deviceId, connection.countryCode, continent);
       const password_hash = EcoVacsAPI.md5(connection.password);
       await api.connect(connection.email, password_hash);
-      debugger;
-    } catch (e) {}
+      return plainToInstance(EcoVacsLoginInfo, {
+        ...api,
+        version: api.getVersion(),
+      });
+    } catch (e) {
+      this.logger.log(e.message);
+      throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async tryConnection(connection: ConnectionDto) {
