@@ -3,8 +3,8 @@
 ---
 context: "/"
 group: nestjs
-project:  ecovas-manage-api
-description: ecovas-manage-api
+project:  ecovacs-manage-api
+description: ecovacs-manage-api
 prefix: '/api'
 local:
   common:

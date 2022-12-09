@@ -15,7 +15,7 @@ export class LoginService {
         ecovacsDeebot.countries[
           countryCode.toUpperCase()
         ].continent.toLowerCase();
-      // Leave blank or use 'ecovacs.com' for Ecovacs login
+      // Leave blank or use 'eco-vacs.com' for Ecovacs login
       // or use 'yeedi.com' for yeedi login (available since version 0.8.3-alpha.2)
       const authDomain = '';
 
