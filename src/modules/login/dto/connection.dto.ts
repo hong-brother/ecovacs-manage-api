@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { isEmpty, IsNotEmpty, IsString } from 'class-validator';
-import { Transform } from 'class-transformer';
+import { isEmpty, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { Expose, Transform } from 'class-transformer';
 
 export class ConnectionDto {
   @ApiProperty({
@@ -24,22 +24,13 @@ export class ConnectionDto {
   countryCode: string;
 
   @ApiProperty({
-    name: 'continent',
-    type: String,
-    description: '',
-    example: '',
-  })
-  @IsString()
-  @IsNotEmpty()
-  continent: string;
-
-  @ApiProperty({
     name: 'authDomain',
     type: String,
     description: '',
     example: '',
   })
   @IsString()
+  @IsOptional()
   authDomain: string;
 
   @ApiProperty({
