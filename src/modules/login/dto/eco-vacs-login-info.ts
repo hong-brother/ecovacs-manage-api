@@ -1,4 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Expose } from 'class-transformer';
+import { IsString } from 'class-validator';
 
 export class EcoVacsLoginInfo {
   @ApiProperty({
@@ -6,6 +8,8 @@ export class EcoVacsLoginInfo {
     type: String,
     description: 'Get the version of the package',
   })
+  @IsString()
+  @Expose({ name: 'version' })
   version: string;
 
   @ApiProperty({
@@ -13,6 +17,8 @@ export class EcoVacsLoginInfo {
     type: String,
     description: 'the id of the device',
   })
+  @IsString()
+  @Expose({ name: 'deviceId' })
   deviceId: string;
 
   @ApiProperty({
@@ -21,6 +27,8 @@ export class EcoVacsLoginInfo {
     description:
       'the country code of the country where the Ecovacs account is registered',
   })
+  @IsString()
+  @Expose({ name: 'country' })
   country: string;
 
   @ApiProperty({
@@ -28,6 +36,8 @@ export class EcoVacsLoginInfo {
     type: String,
     description: 'the domain for the authentication API',
   })
+  @IsString()
+  @Expose({ name: 'authDomain' })
   authDomain: string;
 
   @ApiProperty({
@@ -35,6 +45,8 @@ export class EcoVacsLoginInfo {
     type: String,
     description: 'the resource of the vacuum',
   })
+  @IsString()
+  @Expose({ name: 'resource' })
   resource: string;
 
   @ApiProperty({
@@ -42,6 +54,8 @@ export class EcoVacsLoginInfo {
     type: String,
     description: '',
   })
+  @IsString()
+  @Expose({ name: 'uid' })
   uid: string;
 
   @ApiProperty({
@@ -49,6 +63,8 @@ export class EcoVacsLoginInfo {
     type: String,
     description: 'authentication',
   })
+  @IsString()
+  @Expose({ name: 'authCode' })
   authCode: string;
 
   @ApiProperty({
@@ -56,12 +72,7 @@ export class EcoVacsLoginInfo {
     type: String,
     description: 'access token',
   })
+  @IsString()
+  @Expose({ name: 'user_access_token' })
   userAccessToken: string;
-
-  @ApiProperty({
-    name: 'passwordHash',
-    type: String,
-    description: 'passwordHash',
-  })
-  passwordHash: string;
 }
