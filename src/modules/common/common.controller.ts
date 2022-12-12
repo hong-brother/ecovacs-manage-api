@@ -1,14 +1,16 @@
 import { Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
-import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CommonService } from './common.service';
 import { DeviceIdDto } from './dto/device-id.dto';
 
-@Controller('eco-vacs/common')
+@ApiTags('common')
+@Controller(`eco-vacs/v1/common`)
 export class CommonController {
   constructor(private commonService: CommonService) {}
+
   @Get('/device-id')
   @ApiResponse({
-    description: 'get device id',
+    description: 'get node-machine device id',
     status: HttpStatus.OK,
   })
   @ApiOperation({
@@ -28,7 +30,4 @@ export class CommonController {
   async getCountryCode(@Query('name') name: string) {
     return this.commonService.getCountries();
   }
-
-  @Post('/')
-  async createDeviceId() {}
 }
