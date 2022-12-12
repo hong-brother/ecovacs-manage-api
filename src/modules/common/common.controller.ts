@@ -1,7 +1,14 @@
-import { Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CommonService } from './common.service';
 import { DeviceIdDto } from './dto/device-id.dto';
+import { ConnectionDto } from '../login/dto/connection.dto';
 
 @ApiTags('common')
 @Controller(`eco-vacs/v1/common`)
@@ -29,5 +36,15 @@ export class CommonController {
   })
   async getCountryCode(@Query('name') name: string) {
     return this.commonService.getCountries();
+  }
+
+  @Get('/device-info')
+  async getDeviceInfo() {
+    return this.commonService.getDeviceInfo();
+  }
+
+  @Get('/device-status')
+  async getDeviceStatus() {
+    return this.commonService.getDeviceStatus();
   }
 }

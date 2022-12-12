@@ -6,12 +6,15 @@ import { Injectable, Logger } from '@nestjs/common';
 import os from 'os';
 import cfonts from 'cfonts';
 import { ConfigService } from '@nestjs/config';
-import { isEmpty } from 'class-validator';
+import { isEmpty, isNotIn } from 'class-validator';
+import { EcoVacsAPI } from 'ecovacs-deebot';
 
 @Injectable()
 export class AppConfig {
   private readonly logger = new Logger(AppConfig.name);
   private readonly httpProtocol: string = 'http';
+
+  public ecoVacsInstance: EcoVacsAPI;
 
   constructor(private configService: ConfigService) {}
 
@@ -56,6 +59,10 @@ export class AppConfig {
     return this.getCommon('prefix');
   }
 
+  get isCreateEcoVacsInstance() {
+    return isEmpty(this.ecoVacsInstance) ? false : true;
+  }
+
   public initialize(): void {
     this.banner();
     this.logger.log('');
@@ -88,6 +95,7 @@ export class AppConfig {
 
     return value;
   }
+
   public get(key: string): string {
     const env = process.env.NODE_ENV || 'local';
     const value = this.configService.get(`${env}.${key}`);

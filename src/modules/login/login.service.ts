@@ -4,10 +4,13 @@ import { machineIdSync } from 'node-machine-id';
 import ecovacsDeebot, { EcoVacsAPI } from 'ecovacs-deebot';
 import { plainToClass, plainToInstance } from 'class-transformer';
 import { EcoVacsLoginInfo } from './dto/eco-vacs-login-info';
+import { AppConfig } from '../../config/app.config';
 
 @Injectable()
 export class LoginService {
   private logger = new Logger(LoginService.name);
+
+  constructor(private appConfig: AppConfig) {}
 
   async login(connection: ConnectionDto) {
     try {
@@ -19,6 +22,7 @@ export class LoginService {
       const api = new EcoVacsAPI(deviceId, connection.countryCode, continent);
       const password_hash = EcoVacsAPI.md5(connection.password);
       await api.connect(connection.email, password_hash);
+      this.appConfig.ecoVacsInstance = api;
       return plainToInstance(EcoVacsLoginInfo, {
         ...api,
         version: api.getVersion(),
