@@ -22,6 +22,10 @@ export class SwaggerSetUp {
       `${this.appConfig.protocol}://${this.appConfig.ip}:${this.appConfig.port}`,
     );
     this.document.setDescription(this.description());
+    this.document.addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'Token' },
+      'access-token',
+    );
     return this.document;
   }
 
